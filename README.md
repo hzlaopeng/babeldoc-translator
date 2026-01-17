@@ -28,7 +28,7 @@ __用 Claude Code 翻译 PDF 科学论文，保持公式和格式__
 
 ```bash
 # 克隆到技能目录
-git clone https://github.com/pengdewen/babeldoc-translator.git ~/.claude/skills/babeldoc-translator
+git clone https://github.com/hz_laopeng/babeldoc-translator.git ~/.claude/skills/babeldoc-translator
 ```
 
 然后在 Claude Code 中直接使用即可。
@@ -37,7 +37,7 @@ git clone https://github.com/pengdewen/babeldoc-translator.git ~/.claude/skills/
 
 ```bash
 # 先克隆到任意位置
-git clone https://github.com/pengdewen/babeldoc-translator.git
+git clone https://github.com/hz_laopeng/babeldoc-translator.git
 
 # 复制到技能目录
 cp -r babeldoc-translator ~/.claude/skills/
@@ -47,7 +47,7 @@ cp -r babeldoc-translator ~/.claude/skills/
 
 ```bash
 # 克隆到你的工作目录
-git clone https://github.com/pengdewen/babeldoc-translator.git
+git clone https://github.com/hz_laopeng/babeldoc-translator.git
 
 # 创建符号链接
 ln -s $(pwd)/babeldoc-translator ~/.claude/skills/babeldoc-translator
