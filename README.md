@@ -27,27 +27,26 @@ __用 Claude Code 翻译 PDF 科学论文，保持公式和格式__
 ### 方式一：直接克隆（最简单）
 
 ```bash
-# 克隆项目到本地
-git clone https://github.com/pengdewen/babeldoc-translator.git
-cd babeldoc-translator
+# 克隆到技能目录
+git clone https://github.com/pengdewen/babeldoc-translator.git ~/.claude/skills/babeldoc-translator
 ```
 
 然后在 Claude Code 中直接使用即可。
 
-### 方式二：全局安装
+### 方式二：手动复制
 
 ```bash
-# 克隆项目
+# 先克隆到任意位置
 git clone https://github.com/pengdewen/babeldoc-translator.git
 
-# 复制技能到全局目录
+# 复制到技能目录
 cp -r babeldoc-translator ~/.claude/skills/
 ```
 
-### 方式三：创建符号链接
+### 方式三：符号链接（便于开发）
 
 ```bash
-# 克隆项目
+# 克隆到你的工作目录
 git clone https://github.com/pengdewen/babeldoc-translator.git
 
 # 创建符号链接
@@ -146,8 +145,6 @@ my-translation-project/
 
 ```
 babeldoc-translator/
-├── .claude-plugin/        # 插件清单
-│   └── plugin.json
 ├── SKILL.md              # 技能定义
 ├── README.md             # 项目说明
 ├── LICENSE               # MIT 许可证
