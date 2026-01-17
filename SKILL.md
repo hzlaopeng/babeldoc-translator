@@ -57,172 +57,83 @@ my-translation-project/
 
 ### 基本用法
 
+在 Claude Code 中直接对话即可：
+
 ```
-翻译单个 PDF 文件:
-/babeldoc translate input/paper.pdf
+翻译 input/paper.pdf
 
-指定语言和输出目录:
-/babeldoc translate input/paper.pdf --lang-in en --lang-out zh --output ./output
+翻译 input/paper.pdf，指定语言为英文到中文，输出到 output 目录
 
-批量翻译多个文件:
-/babeldoc batch ./input/*.pdf
+批量翻译 ./input 目录下的所有 PDF 文件
 
-使用自定义配置:
-/babeldoc translate input/paper.pdf --config ./babeldoc.toml
+使用自定义配置文件 ./babeldoc.toml 翻译 input/paper.pdf
 ```
 
 ## 命令参考
 
-### /babeldoc translate
+以下命令可以在 Claude Code 中通过自然语言调用，Claude 会自动将其转换为正确的 BabelDOC 命令。
+
+### 翻译 PDF
 
 翻译单个 PDF 文件。
 
-**用法:**
+**用法示例:**
 ```
-/babeldoc translate <file.pdf> [options]
-```
-
-**文件路径规则:**
-- 输入文件可以是相对路径 (`./input/paper.pdf`) 或绝对路径
-- 输出目录默认为当前目录，建议明确指定 (`--output ./output`)
-- 输出文件命名格式: `<原文件名>.<目标语言>.dual.pdf` (双语) / `.mono.pdf` (单语)
-
-**选项:**
-
-| 选项 | 说明 | 默认值 |
-|------|------|--------|
-| `--lang-in`, `-li` | 源语言代码 | `en` |
-| `--lang-out`, `-lo` | 目标语言代码 | `zh` |
-| `--output`, `-o` | 输出目录 | 当前目录 |
-| `--pages`, `-p` | 翻译指定页码 (如 "1,2,3-5") | 全部 |
-| `--no-dual` | 不输出双语 PDF | - |
-| `--no-mono` | 不输出单语 PDF | - |
-| `--openai-model` | OpenAI 模型 | `gpt-4o-mini` |
-| `--qps` | 每秒请求数限制 | `4` |
-| `--glossary-files` | 术语表 CSV 文件 (逗号分隔) | - |
-
-**示例:**
-```
-/babeldoc translate input/research.pdf
-/babeldoc translate input/paper.pdf --lang-in en --lang-out zh-CN --output ./output
-/babeldoc translate docs/thesis.pdf --pages "1-10,15,20-25" --no-dual
+翻译 input/paper.pdf
+翻译 input/paper.pdf 到中文，输出到 output 目录
+翻译论文的 1-10 页和 15-20 页
 ```
 
-### /babeldoc batch
+**支持的参数:**
+
+| 参数 | 说明 |
+|------|------|
+| 源语言 | 英文 (en)、中文 (zh)、日文 (ja) 等 |
+| 目标语言 | 翻译目标语言 |
+| 输出目录 | 指定翻译结果保存位置 |
+| 页码范围 | 如 "1-10,15,20-25" |
+| 术语表 | CSV 格式的术语对照表 |
+
+### 批量翻译
 
 批量翻译多个 PDF 文件。
 
-**用法:**
+**用法示例:**
 ```
-/babeldoc batch <pattern> [options]
-```
-
-**文件路径规则:**
-- 支持通配符模式 (`./input/*.pdf`, `./papers/**/*.pdf`)
-- 每个输入文件保持相对目录结构
-- 输出目录统一由 `--output` 指定
-
-**选项:** 与 `translate` 相同
-
-**示例:**
-```
-/babeldoc batch "./input/*.pdf" --output ./output
-/babeldoc batch "./docs/**/*.pdf" --lang-in en --lang-out ja --output ./ja_translated
+批量翻译 ./input 目录下的所有 PDF
+批量翻译 ./docs/**/*.pdf 到日文，输出到 ja_translated 目录
 ```
 
-### /babeldoc glossary extract
+### 术语表管理
 
-从 PDF 文件中自动提取术语，生成术语表。
-
-**用法:**
+**提取术语** - 从 PDF 中自动提取术语：
 ```
-/babeldoc glossary extract <file.pdf> [options]
+从 input/paper.pdf 提取术语，保存到 glossary/terms.csv
 ```
 
-**文件路径规则:**
-- 输入为单个 PDF 文件路径
-- 输出为 CSV 文件路径，默认保存到当前目录
-- 建议将术语表保存在 `glossary/` 目录中便于管理
-
-**选项:**
-
-| 选项 | 说明 |
-|------|------|
-| `--output`, `-o` | 输出 CSV 文件路径 |
-| `--min-count` | 最小出现次数阈值 |
-
-**示例:**
+**创建术语表** - 创建空白术语表模板：
 ```
-/babeldoc glossary extract input/paper.pdf --output glossary/terms.csv
+创建一个新的术语表模板 custom_terms.csv
 ```
 
-### /babeldoc glossary create
+### 配置管理
 
-创建一个新的空白术语表模板。
-
-**用法:**
+**初始化配置** - 在当前项目创建 BabelDOC 配置文件：
 ```
-/babeldoc glossary create <filename.csv>
-```
-
-生成的 CSV 包含以下列:
-- `source`: 原语言术语
-- `target`: 目标语言术语
-- `tgt_lng`: 目标语言代码 (可选)
-
-**示例:**
-```
-/babeldoc glossary create custom_terms.csv
+初始化 BabelDOC 配置文件
+使用完整模板初始化配置到 ./configs/translation.toml
 ```
 
-### /babeldoc config init
+### 离线支持
 
-在当前项目初始化 BabelDOC 配置文件。
-
-**用法:**
+**生成离线包** - 用于无网络环境：
 ```
-/babeldoc config init [options]
+生成离线资源包到 ./offline_assets 目录
 ```
 
-**选项:**
-
-| 选项 | 说明 |
-|------|------|
-| `--output`, `-o` | 配置文件输出路径 | `babeldoc.toml` |
-| `--template` | 配置模板类型 | `basic` \| `full` |
-
-**示例:**
+**恢复离线包**：
 ```
-/babeldoc config init
-/babeldoc config init --template full --output ./configs/translation.toml
-```
-
-### /babeldoc offline package
-
-生成离线资源包，用于无网络环境。
-
-**用法:**
-```
-/babeldoc offline package <output_directory>
-```
-
-**示例:**
-```
-/babeldoc offline package ./offline_assets
-```
-
-### /babeldoc offline restore
-
-从离线资源包恢复。
-
-**用法:**
-```
-/babeldoc offline restore <package.zip>
-```
-
-**示例:**
-```
-/babeldoc offline restore ./offline_assets/offline_assets_*.zip
+从离线包 ./offline_assets/offline_assets_*.zip 恢复
 ```
 
 ## 配置文件格式
@@ -269,17 +180,17 @@ pool-max-workers = 8
 
 ```
 1. 初始化项目配置
-   /babeldoc config init
+   初始化 BabelDOC 配置文件
 
 2. 编辑配置文件，设置 API 密钥和语言
 
 3. 从论文中提取术语
-   /babeldoc glossary extract paper.pdf --output terms.csv
+   从 paper.pdf 提取术语，保存到 terms.csv
 
 4. 编辑术语表，添加专业术语翻译
 
 5. 使用术语表翻译论文
-   /babeldoc translate paper.pdf --glossary-files terms.csv
+   使用 terms.csv 术语表翻译 paper.pdf
 
 6. 检查翻译结果
 ```
@@ -288,10 +199,10 @@ pool-max-workers = 8
 
 ```
 1. 创建项目配置
-   /babeldoc config init --template full
+   初始化完整配置文件
 
 2. 批量翻译所有 PDF
-   /babeldoc batch "./docs/*.pdf" --config ./babeldoc.toml
+   批量翻译 ./docs 目录下的所有 PDF
 
 3. 检查输出目录中的翻译结果
 ```
@@ -425,16 +336,16 @@ A: 根据项目文档，推荐:
 
 **Q: 翻译大文档时如何避免超时?**
 
-A: 使用 `--max-pages-per-part` 选项将文档分块处理:
+A: 使用分块处理：
 ```
-/babeldoc translate large_doc.pdf --max-pages-per-part 50
+翻译 large_doc.pdf，设置分块大小为 50 页
 ```
 
 **Q: 如何处理扫描版 PDF?**
 
-A: 启用 OCR 选项:
+A: 启用 OCR：
 ```
-/babeldoc translate scanned.pdf --ocr-workaround
+翻译 scanned.pdf，启用 OCR 模式
 ```
 
 **Q: Fallback 翻译质量如何?**

@@ -7,7 +7,7 @@ __用 Claude Code 翻译 PDF 科学论文，保持公式和格式__
 
 ##  这是什么？
 
-**BabelDOC Translator Skill** 是一个 Claude Code 技能插件，让你在 Claude Code 中直接翻译 PDF 科学论文。
+**BabelDOC Translator Skill** 是一个 Claude Code 技能，让你在 Claude Code 中直接翻译 PDF 科学论文。
 
 > 一句话理解：用自然语言告诉 Claude 翻译 PDF，自动保持公式、图表和格式
 
@@ -105,6 +105,22 @@ openai-base-url = "https://open.bigmodel.cn/api/paas/v4"
 openai-api-key = "your-api-key-here"
 ```
 
+> ⚠️ **安全提醒**: 不要将包含真实 API Key 的配置文件提交到 Git 或公开仓库。
+
+### 使用配置模板
+
+项目提供了配置模板，可直接复制使用：
+
+```bash
+# 基础配置模板
+cp templates/basic.toml ~/.claude/babeldoc.toml
+
+# 完整配置模板（包含更多选项）
+cp templates/full.toml ~/.claude/babeldoc.toml
+```
+
+复制后，编辑 `~/.claude/babeldoc.toml`，填入你的 API Key。
+
 ### 推荐模型
 
 | 模型 | 特点 | 适用场景 |
@@ -124,7 +140,24 @@ openai-api-key = "your-api-key-here"
 
 批量翻译 ./input/*.pdf
 
-使用术语表翻译 paper.pdf --glossary-files terms.csv
+使用术语表 terms.csv 翻译 paper.pdf
+```
+
+### 使用术语表
+
+术语表可以确保专业术语翻译的一致性：
+
+```bash
+# 1. 复制术语表模板
+cp templates/glossary_template.csv my_terms.csv
+
+# 2. 编辑术语表，添加专业术语
+# source,target,tgt_lng
+# Transformer,Transformer,ja
+# Attention,注意力机制,zh
+
+# 3. 在 Claude Code 中使用
+使用 my_terms.csv 术语表翻译 paper.pdf
 ```
 
 ### 项目结构建议
@@ -145,14 +178,22 @@ my-translation-project/
 
 ```
 babeldoc-translator/
-├── SKILL.md              # 技能定义
+├── SKILL.md              # 技能定义文件
 ├── README.md             # 项目说明
 ├── LICENSE               # MIT 许可证
 └── templates/            # 配置模板
-    ├── basic.toml
-    ├── full.toml
-    └── glossary_template.csv
+    ├── basic.toml        # 基础配置模板
+    ├── full.toml         # 完整配置模板（含所有选项）
+    └── glossary_template.csv  # 术语表模板
 ```
+
+### 模板文件说明
+
+| 文件 | 说明 |
+|------|------|
+| `basic.toml` | 基础配置，包含常用选项 |
+| `full.toml` | 完整配置，包含所有 BabelDOC 选项 |
+| `glossary_template.csv` | 术语表模板，用于专业术语翻译 |
 
 ---
 
@@ -168,7 +209,20 @@ A: 使用专业 LLM 模型，成功翻译率 94%+。
 
 **Q: 如何处理扫描版 PDF？**
 
-A: BabelDOC 会自动检测，必要时使用 `--ocr-workaround` 选项。
+A: BabelDOC 会自动检测，必要时启用 OCR 模式。
+
+---
+
+##  安全提醒
+
+⚠️ **重要**：请勿将包含真实 API Key 的配置文件提交到 Git 或公开仓库。
+
+本项目已包含 `.gitignore` 配置，会自动忽略所有 `.toml` 配置文件（除 `templates/` 目录下的模板外）。
+
+如果你的配置文件已经被追踪，请先清除：
+```bash
+git rm --cached ~/.claude/babeldoc.toml 2>/dev/null || true
+```
 
 ---
 
