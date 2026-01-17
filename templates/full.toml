@@ -1,0 +1,181 @@
+# BabelDOC Full Configuration Template
+# Usage: /babeldoc config init --template full
+# NOTE: Use only English comments to avoid encoding errors
+
+[babeldoc]
+# ====================
+# Basic Settings
+# ====================
+debug = false
+lang-in = "en-US"
+lang-out = "zh-CN"
+qps = 10
+output = "./translated"
+
+# ====================
+# PDF Processing Options
+# ====================
+# Translate specific pages
+# pages = "1,2,3-5,-3,3-5"
+
+# Force split short lines
+split-short-lines = false
+
+# Split threshold factor
+short-line-split-factor = 0.8
+
+# Skip PDF cleanup step
+skip-clean = false
+
+# Put translation pages first in dual PDF mode
+dual-translate-first = false
+
+# Disable rich text translation
+disable-rich-text-translate = false
+
+# Use alternating pages mode (dual-language PDF)
+use-alternating-pages-dual = false
+
+# Split large documents for translation
+max-pages-per-part = 50
+
+# Only include translated pages (use with --pages)
+only_include_translated_page = false
+
+# ====================
+# Scanned Document Processing
+# ====================
+# Skip scanned document detection
+skip-scanned-detection = false
+
+# OCR workaround (for black text on white background)
+ocr-workaround = false
+
+# Auto-enable OCR workaround
+auto_enable_ocr_workaround = false
+
+# ====================
+# Formula and Table
+# ====================
+# Translate table text (experimental)
+translate-table-text = false
+
+# Formula font pattern
+# formular-font-pattern = ""
+
+# Formula char pattern
+# formular-char-pattern = ""
+
+# Show character bounding boxes (debug only)
+show-char-box = false
+
+# ====================
+# Rendering Control
+# ====================
+# Skip form rendering
+skip_form_render = false
+
+# Skip curve rendering
+skip_curve_render = false
+
+# Only parse and generate PDF (no translation)
+only_parse_generate_pdf = false
+
+# Remove non-formula lines
+remove_non_formula_lines = false
+
+# Non-formula line IoU threshold
+non_formula_line_iou_threshold = 0.2
+
+# Figure/table protection threshold
+figure_table_protection_threshold = 0.3
+
+# ====================
+# Watermark Control
+# ====================
+# watermarked | no_watermark | both
+watermark-output-mode = "watermarked"
+
+# ====================
+# Layout Analysis
+# ====================
+# RPC document layout analysis service address
+# rpc_doclayout = ""
+
+# Merge alternating line numbers layout
+merge-alternating-line-numbers = false
+
+# ====================
+# Glossary Management
+# ====================
+# Disable automatic term extraction
+auto_extract_glossary = true
+
+# Save auto-extracted glossary
+# save-auto-extracted-glossary = "./extracted_terms.csv"
+
+# Glossary files (comma-separated)
+# glossary-files = "./terms1.csv,./terms2.csv"
+
+# Term processing thread count
+# term-pool-max-workers = 8
+
+# ====================
+# Translation Service
+# ====================
+openai = true
+openai-model = "gpt-4o-mini"
+openai-base-url = "https://api.openai.com/v1"
+openai-api-key = "your-api-key-here"
+
+# Enable JSON mode if requested
+enable-json-mode-if-requested = false
+
+# Disable same text fallback
+disable_same_text_fallback = false
+
+# Custom system prompt
+# custom-system-prompt = "You are a professional, authentic machine translation engine."
+
+# Add formula placeholder hint
+add-formula-placehold-hint = false
+
+# Disable same text fallback (duplicate)
+disable-same-text-fallback = false
+
+# ====================
+# Output Control
+# ====================
+no-dual = false
+no-mono = false
+min-text-length = 5
+
+# ====================
+# Performance Settings
+# ====================
+pool-max-workers = 8
+
+# ====================
+# Working Directory
+# ====================
+# working_dir = "/tmp/babeldoc"
+
+# ====================
+# Progress Reporting
+# ====================
+report-interval = 0.5
+
+# ====================
+# Font Settings
+# ====================
+# Primary font family: serif | sans-serif | script
+# primary-font-family = "serif"
+
+# ====================
+# Offline Asset Management
+# ====================
+# Generate offline assets package
+# generate-offline-assets = "./offline_package"
+
+# Restore offline assets package
+# restore-offline-assets = "./offline_assets_*.zip"

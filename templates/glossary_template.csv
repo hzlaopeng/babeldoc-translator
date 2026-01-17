@@ -1,0 +1,21 @@
+source,target,tgt_lng
+Machine Learning,机器学习,zh-CN
+Deep Learning,深度学习,zh-CN
+Neural Network,神经网络,zh-CN
+Transformer,Transformer,zh-CN
+Attention Mechanism,注意力机制,zh-CN
+Backpropagation,反向传播,zh-CN
+Gradient Descent,梯度下降,zh-CN
+Loss Function,损失函数,zh-CN
+Hyperparameter,超参数,zh-CN
+Overfitting,过拟合,zh-CN
+Underfitting,欠拟合,zh-CN
+Regularization,正则化,zh-CN
+Convolution,卷积,zh-CN
+Pooling,池化,zh-CN
+Embedding,嵌入,zh-CN
+Token,词元,zh-CN
+Epoch,轮次,zh-CN
+Batch Size,批次大小,zh-CN
+Learning Rate,学习率,zh-CN
+Optimizer,优化器,zh-CN

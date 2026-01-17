@@ -1,0 +1,16 @@
+# API Keys - 不要上传敏感信息
+*.toml
+!templates/*.toml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*~
+
+# Logs
+*.log
